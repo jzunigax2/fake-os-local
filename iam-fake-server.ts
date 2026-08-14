@@ -104,9 +104,8 @@ app.post('/', (req: Request, res: Response) => {
       const user = users.get(UserName);
       if (!user) return xmlError(res, 404, 'NoSuchEntity', `User ${UserName} does not exist.`);
 
-      // PUT your access keys here
-      const accessKeyId = '';
-      const secretAccessKey = '';
+      const accessKeyId = fakeAccessKeyId();
+      const secretAccessKey = fakeSecretKey();
       user.accessKeyId = accessKeyId;
       user.secretAccessKey = secretAccessKey;
       persist();
