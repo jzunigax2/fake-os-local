@@ -540,6 +540,16 @@ app.post('/api/v1/channel-accounts', (req: Request, res: Response) => {
   res.json(ok(created));
 });
 
+// PUT /v1/channel-accounts/:id
+app.put('/api/v1/channel-accounts/:id', (req: Request, res: Response) => {
+  const ca = channelAccounts.find((c) => c.id === Number(req.params.id));
+  if (!ca) return res.json(fail('404', `Channel account ${req.params.id} not found`));
+
+  Object.assign(ca, req.body);
+  persist();
+  res.json(ok(null));
+});
+
 app.listen(PORT, () => {
   console.log(`Fake Wasabi (WACM) server escuchando en http://localhost:${PORT}/api`);
   console.log(`Basic Auth esperado: ${FAKE_USERNAME}:${FAKE_PASSWORD}`);
